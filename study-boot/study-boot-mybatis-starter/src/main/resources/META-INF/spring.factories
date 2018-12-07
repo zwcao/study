@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.weston.study.boot.mybatis.starter.DataSourceConfiguration,\
+com.weston.study.boot.mybatis.starter.MybatisConfiguration
