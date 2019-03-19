@@ -16,5 +16,6 @@
     <module>study-boot-cache</module>
     <module>study-boot-mybatis-starter</module>
     <module>study-boot-druid-starter</module>
+    <module>study-boot-mongo-starter</module>
   </modules>
 </project>
