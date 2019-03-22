@@ -10,10 +10,102 @@
 	</parent>
 	<artifactId>study-boot-mongo-starter</artifactId>
 	<name>study::boot::starter::mongo</name>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<!-- 通过morphia操作mongodb -->
+		<dependency>
+			<groupId>org.mongodb.morphia</groupId>
+			<artifactId>morphia</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.5.5.RELEASE</version>
+				<configuration>
+					<fork>true</fork>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- 存储目录 -->
+	<property>
+		<name>hbase.rootdir</name>
+		<value>hdfs://czw:9000/hbase</value>
+		<description>The directory shared byregion servers.</description>
+	</property>
+	<!-- hbase的端口 -->
+	<property>
+		<name>hbase.zookeeper.property.clientPort</name>
+		<value>2181</value>
+		<description>Property from ZooKeeper'sconfig zoo.cfg. The port at
+			which the clients will connect.
+		</description>
+	</property>
+	<!-- 超时时间 -->
+	<property>
+		<name>zookeeper.session.timeout</name>
+		<value>120000</value>
+	</property>
+	<!-- zookeeper 集群配置。如果是集群，则添加其它的主机地址 -->
+	<property>
+		<name>hbase.zookeeper.quorum</name>
+		<value>czw:2181,54.178.166.145:2181,54.178.166.145:2182</value>
+	</property>
+	<property>
+		<name>zookeeper.znode.parent</name>
+		<value>/hbase/master</value>
+	</property>
+	<property>
+		<name>hbase.tmp.dir</name>
+		<value>/app/hbase/data/tmp</value>
+	</property>
+	<!-- false是单机模式，true是分布式模式 -->
+	<property>
+		<name>hbase.cluster.distributed</name>
+		<value>false</value>
+	</property>
 </project>

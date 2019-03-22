@@ -17,5 +17,6 @@
     <module>study-boot-mybatis-starter</module>
     <module>study-boot-druid-starter</module>
     <module>study-boot-mongo-starter</module>
+    <module>study-boot-hbase-starter</module>
   </modules>
 </project>
