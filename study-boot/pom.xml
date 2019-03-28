@@ -6,17 +6,18 @@
 		<artifactId>study-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	
+
 	<artifactId>study-boot</artifactId>
 	<packaging>pom</packaging>
 	<name>study::boot</name>
-	
+
 	<modules>
 		<module>study-boot-quickstart</module>
-    <module>study-boot-cache</module>
-    <module>study-boot-mybatis-starter</module>
-    <module>study-boot-druid-starter</module>
-    <module>study-boot-mongo-starter</module>
-    <module>study-boot-hbase-starter</module>
+		<module>study-boot-cache</module>
+		<module>study-boot-mybatis-starter</module>
+		<module>study-boot-druid-starter</module>
+		<module>study-boot-mongo-starter</module>
+		<module>study-boot-hbase-starter</module>
+    <module>study-boot-elasticsearch-starter</module>
   </modules>
 </project>

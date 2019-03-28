@@ -1,5 +1,6 @@
 package com.weston.study.boot.mongo.starter;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class TestController {
 
 	@RequestMapping("add")
 	public String add() {
-		User user = new User(null, "aaa", 1, new Date());
+		User user = new User(null, "aaa", 1, new Date(), BigDecimal.valueOf(100));
 		userRepository.insert(user);
 		return "success";
 	}
@@ -35,7 +36,7 @@ public class TestController {
 
 	@RequestMapping("update")
 	public String update() {
-		User user = new User(null, "aaa11", 1, new Date());
+		User user = new User(null, "aaa11", 1, new Date(), BigDecimal.valueOf(100));
 		userRepository.save(user);
 		return "success";
 	}

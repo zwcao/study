@@ -1,6 +1,7 @@
 package com.weston.study.boot.mongo.starter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -14,12 +15,14 @@ public class User implements Serializable {
 	private String username;
 	private Integer age;
 	private Date birthday;
+	private BigDecimal amount;
 
-	public User(String id, String username, Integer age, Date birthday) {
+	public User(String id, String username, Integer age, Date birthday, BigDecimal amount) {
 		this.id = id;
 		this.username = username;
 		this.age = age;
 		this.birthday = birthday;
+		this.amount = amount;
 	}
 
 
