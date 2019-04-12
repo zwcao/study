@@ -16,7 +16,7 @@ public class DataSourceConfiguration {
 
 	@Value("${druid.type}")
 	private Class<? extends DataSource> dataSourceType;
-
+	
 	@Bean(name = "masterDataSource")
 	@Primary
 	@ConfigurationProperties(prefix = "druid.master")

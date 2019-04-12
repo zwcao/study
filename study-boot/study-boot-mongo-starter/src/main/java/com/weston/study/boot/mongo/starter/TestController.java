@@ -4,13 +4,18 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.script.ExecutableMongoScript;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.mongodb.ReadPreference;
 
 @RestController
 public class TestController {
@@ -23,8 +28,16 @@ public class TestController {
 
 	@RequestMapping("add")
 	public String add() {
-		User user = new User(null, "aaa", 1, new Date(), BigDecimal.valueOf(100));
-		userRepository.insert(user);
+		this.mongoTemplate.setReadPreference(ReadPreference.primary());;
+		String command = "db.user.find();";
+//		String command = "db.user.update({}, { $set: { \"name\":\"bbb\" }},{\"multi\":true });";
+		
+//		Document doc = (Document) mongoTemplate.scriptOps().execute(new ExecutableMongoScript(command) , "directly execute script");
+		Object obj = mongoTemplate.scriptOps().execute(new ExecutableMongoScript("var array = [];var cursor = " + command + "; "
+				+ "while(cursor.hasNext()){ array.push(cursor.next());} return array;") , "directly execute script");
+//		User user = new User(null, "aaa", 1, new Date(), BigDecimal.valueOf(100));
+//		userRepository.insert(user);
+//		nInserted=0.0, nUpserted=0.0, nMatched=12.0, nModified=12.0, nRemoved=0.0x
 		return "success";
 	}
 
