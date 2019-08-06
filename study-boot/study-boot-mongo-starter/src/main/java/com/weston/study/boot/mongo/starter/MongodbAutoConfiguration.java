@@ -1,5 +1,7 @@
 package com.weston.study.boot.mongo.starter;
 
+import com.weston.study.boot.mongo.starter.converter.BigDecimalConverter;
+import com.weston.study.boot.mongo.starter.converter.DateStringConverter;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.mapping.Mapper;
@@ -46,6 +48,8 @@ public class MongodbAutoConfiguration {
                 morphia.map(Class.forName(entityClass));
             }
         }
+        morphia.getMapper().getConverters().addConverter(new DateStringConverter());
+        morphia.getMapper().getConverters().addConverter(new BigDecimalConverter());
         return morphia;
     }
 

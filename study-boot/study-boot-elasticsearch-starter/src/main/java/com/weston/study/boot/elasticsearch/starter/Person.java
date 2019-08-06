@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Document(indexName = "person", type = "person")
-public class Person implements Serializable {
+public class Person {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String name;

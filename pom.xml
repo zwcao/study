@@ -1,201 +1,227 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<!-- 如果不想继承parent，在dependency中添加spring-boot-dependencies依赖 -->
-	<!-- <parent> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-parent</artifactId> 
-		<version>2.1.1.RELEASE</version> </parent> -->
-	<groupId>com.weston.study</groupId>
-	<artifactId>study-parent</artifactId>
-	<version>1.0.0</version>
-	<packaging>pom</packaging>
-	<name>study</name>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- 如果不想继承parent，在dependency中添加spring-boot-dependencies依赖 -->
+    <!-- <parent> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.1.RELEASE</version> </parent> -->
+    <groupId>com.weston.study</groupId>
+    <artifactId>study-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>study</name>
 
-	<modules>
-		<module>study-tools</module>
-		<module>study-rpc</module>
-		<module>study-boot</module>
-	</modules>
+    <modules>
+        <module>study-tools</module>
+        <module>study-rpc</module>
+        <module>study-boot</module>
+        <module>study-core</module>
+        <module>study-test</module>
+    </modules>
 
-	<properties>
-		<study.version>1.0.0</study.version>
+    <properties>
+        <study.version>1.0.0</study.version>
 
-		<spring-boot-starter.version>2.1.1.RELEASE</spring-boot-starter.version>
-		<mybatis-spring-boot-starter.version>1.3.2</mybatis-spring-boot-starter.version>
+        <spring-boot-starter.version>2.1.4.RELEASE</spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>1.3.2</mybatis-spring-boot-starter.version>
 
-		<dubbo.version>2.6.2</dubbo.version>
-		<sentinel-dubbo-adapter.version>0.1.1</sentinel-dubbo-adapter.version>
+        <dubbo.version>2.6.2</dubbo.version>
+        <sentinel-dubbo-adapter.version>0.1.1</sentinel-dubbo-adapter.version>
 
-		<commons-lang3.version>3.4</commons-lang3.version>
-		<commons-collections4.version>4.1</commons-collections4.version>
-		<commons-io.version>2.4</commons-io.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <commons-io.version>2.4</commons-io.version>
 
-		<mysql-connector-java.version>5.1.35</mysql-connector-java.version>
-		<mybatis.version>3.4.4</mybatis.version>
-		<mybatis-spring.version>1.3.1</mybatis-spring.version>
-		<druid.version>1.1.10</druid.version>
+        <mysql-connector-java.version>5.1.35</mysql-connector-java.version>
+        <mybatis.version>3.4.4</mybatis.version>
+        <mybatis-spring.version>1.3.1</mybatis-spring.version>
+        <druid.version>1.1.10</druid.version>
 
-		<spring-boot-starter-durid.version>1.1.10</spring-boot-starter-durid.version>
+        <spring-boot-starter-durid.version>1.1.10</spring-boot-starter-durid.version>
 
-	</properties>
+    </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<!-- study -->
-			<dependency>
-				<groupId>com.weston.study</groupId>
-				<artifactId>study-tools-utils</artifactId>
-				<version>${study.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.weston.study</groupId>
-				<artifactId>study-boot-mybatis-starter</artifactId>
-				<version>${study.version}</version>
-			</dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- study -->
+            <dependency>
+                <groupId>com.weston.study</groupId>
+                <artifactId>study-tools-utils</artifactId>
+                <version>${study.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.weston.study</groupId>
+                <artifactId>study-boot-mybatis-starter</artifactId>
+                <version>${study.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.weston.study</groupId>
+                <artifactId>study-core-common</artifactId>
+                <version>${study.version}</version>
+            </dependency>
 
-			<!-- springboot -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot-starter.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis.spring.boot</groupId>
-				<artifactId>mybatis-spring-boot-starter</artifactId>
-				<version>${mybatis-spring-boot-starter.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-starter-jdbc</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring-boot-starter.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-starter-logging</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<!-- 项目迁移时，诊断配置文件，或者做短暂数据迁移，迁移后要从依赖中删除 <dependency> <groupId>org.springframework.boot</groupId> 
-				<artifactId>spring-boot-properties-migrator</artifactId> <scope>runtime</scope> 
-				</dependency> -->
+            <!-- springboot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-starter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-jdbc</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot-starter.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- 项目迁移时，诊断配置文件，或者做短暂数据迁移，迁移后要从依赖中删除 <dependency> <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-properties-migrator</artifactId> <scope>runtime</scope>
+                </dependency> -->
 
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-log4j2</artifactId>
-				<version>${spring-boot-starter.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring-boot-starter.version}</version>
+            </dependency>
 
-			<!-- poi -->
-			<dependency>
-				<groupId>org.apache.poi</groupId>
-				<artifactId>poi-ooxml</artifactId>
-				<version>3.15</version>
-			</dependency>
-			<dependency>
-				<groupId>xerces</groupId>
-				<artifactId>xerces</artifactId>
-				<version>2.4.0</version>
-			</dependency>
+            <!-- poi -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.15</version>
+            </dependency>
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xerces</artifactId>
+                <version>2.4.0</version>
+            </dependency>
 
-			<!-- fastjson -->
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>1.2.6</version>
-			</dependency>
+            <!-- fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.6</version>
+            </dependency>
 
-			<!-- apache -->
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>${commons-lang3.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-collections4</artifactId>
-				<version>${commons-collections4.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>${commons-io.version}</version>
-			</dependency>
+            <!-- apache -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
 
-			<!-- dubbo & sentinel -->
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>dubbo</artifactId>
-				<version>${dubbo.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba.csp</groupId>
-				<artifactId>sentinel-dubbo-adapter</artifactId>
-				<version>${sentinel-dubbo-adapter.version}</version>
-			</dependency>
+            <!-- dubbo & sentinel -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-dubbo-adapter</artifactId>
+                <version>${sentinel-dubbo-adapter.version}</version>
+            </dependency>
 
-			<!-- db -->
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql-connector-java.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis</artifactId>
-				<version>${mybatis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis-spring</artifactId>
-				<version>${mybatis-spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>druid</artifactId>
-				<version>${druid.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>druid-spring-boot-starter</artifactId>
-				<version>${spring-boot-starter-durid.version}</version>
-			</dependency>
+            <!-- db -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${spring-boot-starter-durid.version}</version>
+            </dependency>
 
-			<!-- 日志 -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.7.25</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+            <!-- 日志 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.25</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<!-- 打源码包 -->
-				<plugin>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>2.4</version>
-					<configuration>
-						<attach>true</attach>
-					</configuration>
-					<executions>
-						<execution>
-							<phase>compile</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- 打源码包 -->
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <attach>true</attach>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
