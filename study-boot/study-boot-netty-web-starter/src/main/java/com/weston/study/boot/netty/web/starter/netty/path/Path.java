@@ -1,4 +1,6 @@
-package com.weston.study.boot.netty.web.starter;
+package com.weston.study.boot.netty.web.starter.netty.path;
+
+import com.weston.study.boot.netty.web.starter.netty.annotation.NettyHttpHandler;
 
 public class Path {
     private String method;

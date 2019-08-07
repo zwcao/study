@@ -1,4 +1,4 @@
-package com.weston.study.boot.netty.web.starter;
+package com.weston.study.boot.netty.web.starter.netty.iohandler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
@@ -12,6 +12,7 @@ import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_LENGTH;
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 
 public class FilterLogginglHandler extends LoggingHandler {
+
     public FilterLogginglHandler() {
         super(LogLevel.INFO);
     }

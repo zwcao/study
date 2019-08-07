@@ -1,4 +1,4 @@
-package com.weston.study.boot.netty.web.starter;
+package com.weston.study.boot.netty.web.starter.netty.http;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;

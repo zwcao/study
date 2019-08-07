@@ -1,5 +1,8 @@
-package com.weston.study.boot.netty.web.starter;
+package com.weston.study.boot.netty.web.starter.configuration;
 
+import com.weston.study.boot.netty.web.starter.netty.iohandler.FilterLogginglHandler;
+import com.weston.study.boot.netty.web.starter.netty.iohandler.HttpServerHandler;
+import com.weston.study.boot.netty.web.starter.netty.iohandler.InterceptorHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.UnpooledByteBufAllocator;
@@ -52,28 +55,32 @@ public class NettyHttpServer implements ApplicationListener<ApplicationStartedEv
         bootstrap.group(bossGroup, workerGroup);
         bootstrap.channel(NioServerSocketChannel.class);
         bootstrap.childOption(NioChannelOption.TCP_NODELAY, true);
-        bootstrap.childOption(NioChannelOption.SO_REUSEADDR,true);
-        bootstrap.childOption(NioChannelOption.SO_KEEPALIVE,false);
+        bootstrap.childOption(NioChannelOption.SO_REUSEADDR, true);
+        bootstrap.childOption(NioChannelOption.SO_KEEPALIVE, false);
         bootstrap.childOption(NioChannelOption.SO_RCVBUF, 2048);
         bootstrap.childOption(NioChannelOption.SO_SNDBUF, 2048);
         bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
             @Override
             public void initChannel(SocketChannel ch) {
-                // 支持SSL
-                ch.pipeline().addFirst(new ChannelInboundHandlerAdapter() {
-                    @Override
-                    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                        if (((ByteBuf) msg).getByte(0) == 22) {
-                            SelfSignedCertificate ssc = new SelfSignedCertificate();
-                            SslContext sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
-                            SSLEngine sslEngine = sslCtx.newEngine(UnpooledByteBufAllocator.DEFAULT);
-                            // 将处理 https 的处理程序添加至 HttpServerCodec 之前
-                            ctx.pipeline().addBefore("HttpServerCodec", "sslHandler", new SslHandler(sslEngine));
-                        }
-                        ctx.pipeline().remove(this);
-                        super.channelRead(ctx, msg);
-                    }
-                });
+//                // 支持SSL
+//                ch.pipeline().addFirst(new ChannelInboundHandlerAdapter() {
+//                    @Override
+//                    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+//                        // https数据流的第一位是十六进制“16”，转换成十进制就是22
+//                        if (((ByteBuf) msg).getByte(0) == 22) {
+//                            SelfSignedCertificate ssc = new SelfSignedCertificate();
+//                            SslContext sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
+//                            SSLEngine sslEngine = sslCtx.newEngine(UnpooledByteBufAllocator.DEFAULT);
+//                            // 将处理 https 的处理程序添加至 HttpServerCodec 之前
+//                            ctx.pipeline().addBefore("codec", "sslHandler", new SslHandler(sslEngine));
+//                        } else if (((ByteBuf) msg).getByte(0) != 22) {
+//                            // 删除 sslHandler
+//                            ctx.pipeline().remove("sslHandler");
+//                        }
+//                        ctx.pipeline().remove(this);
+//                        super.channelRead(ctx, msg);
+//                    }
+//                });
                 ch.pipeline().addLast("codec", new HttpServerCodec());
                 ch.pipeline().addLast("aggregator", new HttpObjectAggregator(1024 * 1024));
                 ch.pipeline().addLast("logging", new FilterLogginglHandler());
@@ -83,15 +90,7 @@ public class NettyHttpServer implements ApplicationListener<ApplicationStartedEv
         })
         ;
         ChannelFuture channelFuture = bootstrap.bind(port).syncUninterruptibly().addListener(future -> {
-            String logBanner = "\n\n" +
-                    "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n" +
-                    "*                                                                                   *\n" +
-                    "*                                                                                   *\n" +
-                    "*                   Netty Http Server started on port {}.                         *\n" +
-                    "*                                                                                   *\n" +
-                    "*                                                                                   *\n" +
-                    "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n";
-            log.info(logBanner, port);
+            log.info("Netty Http Server started on port {}", port);
         });
         channelFuture.channel().closeFuture().addListener(future -> {
             log.info("Netty Http Server Start Shutdown ............");

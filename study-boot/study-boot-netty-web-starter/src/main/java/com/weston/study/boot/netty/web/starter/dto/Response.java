@@ -1,4 +1,4 @@
-package com.weston.study.boot.netty.web.starter;
+package com.weston.study.boot.netty.web.starter.dto;
 
 import com.alibaba.fastjson.JSONObject;
 

@@ -1,10 +1,13 @@
-package com.weston.study.boot.netty.web.starter;
+package com.weston.study.boot.netty.web.starter.netty.annotation;
+
+import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Component
 public @interface NettyHttpHandler {
     /**
      * 请求路径
