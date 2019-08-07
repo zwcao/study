@@ -9,7 +9,7 @@
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>study-boot-cache</artifactId>
-	<name>study::boot::cache</name>
+	<name>study::boot::cache::starter</name>
 
 	<dependencies>
 	</dependencies>

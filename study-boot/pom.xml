@@ -20,6 +20,7 @@
         <module>study-boot-mongo-starter</module>
         <module>study-boot-hbase-starter</module>
         <module>study-boot-elasticsearch-starter</module>
+        <module>study-boot-netty-web-starter</module>
     </modules>
 
 </project>

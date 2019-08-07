@@ -9,7 +9,7 @@
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>study-boot-mybatis-starter</artifactId>
-	<name>study::boot::starter::mybatis</name>
+	<name>study::boot::mybatis::starter</name>
 
 	<dependencies>
 		<dependency>
