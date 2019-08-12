@@ -22,6 +22,7 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -82,6 +83,7 @@ public class NettyHttpServer implements ApplicationListener<ApplicationStartedEv
 //                        super.channelRead(ctx, msg);
 //                    }
 //                });
+                ch.pipeline().addLast("idleStateHander", new IdleStateHandler(1, 2, 3));
                 ch.pipeline().addLast("codec", new HttpServerCodec());
                 ch.pipeline().addLast("aggregator", new HttpObjectAggregator(1024 * 1024));
                 ch.pipeline().addLast("logging", new FilterLogginglHandler());
@@ -91,7 +93,11 @@ public class NettyHttpServer implements ApplicationListener<ApplicationStartedEv
         })
         ;
         ChannelFuture channelFuture = bootstrap.bind(port).syncUninterruptibly().addListener(future -> {
-            log.info("Netty Http Server started on port {}", port);
+            if(future.isSuccess()) {
+                log.info("Netty Http Server started on port {}", port);
+            } else {
+                log.info("Netty Http Server started on port {} failure", port);
+            }
         });
         channelFuture.channel().closeFuture().addListener(future -> {
             log.info("Netty Http Server Start Shutdown ............");

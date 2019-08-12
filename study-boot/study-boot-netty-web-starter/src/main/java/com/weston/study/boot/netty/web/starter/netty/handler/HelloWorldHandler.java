@@ -9,6 +9,11 @@ public class HelloWorldHandler implements IFunctionHandler<String> {
 
     @Override
     public Response<String> execute(NettyHttpRequest request) {
+        try {
+            Thread.sleep(5000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return Response.ok("Hello World");
     }
 }
