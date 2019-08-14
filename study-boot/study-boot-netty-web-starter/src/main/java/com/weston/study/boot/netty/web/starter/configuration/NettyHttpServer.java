@@ -31,8 +31,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
 
 import javax.annotation.Resource;
-import javax.net.ssl.SSLEngine;
-
 
 @Configuration
 @Slf4j
@@ -49,7 +47,6 @@ public class NettyHttpServer implements ApplicationListener<ApplicationStartedEv
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
-
         ServerBootstrap bootstrap = new ServerBootstrap();
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
