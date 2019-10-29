@@ -38,7 +38,7 @@
 
         <spring-boot-starter-durid.version>1.1.10</spring-boot-starter-durid.version>
 
-        <netty.version>4.1.32.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
     </properties>
 
     <dependencyManagement>
