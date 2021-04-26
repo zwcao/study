@@ -29,7 +29,7 @@
 
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-collections4.version>4.1</commons-collections4.version>
-        <commons-io.version>2.4</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
 
         <mysql-connector-java.version>5.1.35</mysql-connector-java.version>
         <mybatis.version>3.4.4</mybatis.version>
